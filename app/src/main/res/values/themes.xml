@@ -13,6 +13,29 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="TextViewStyle" parent="Theme.MyCalendar006"></style>
-    <style name="LineView" parent="Theme.MyCalendar006"></style>
+    <style name="TextViewStyle" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/night_background</item>
+        <item name="android:background">@color/trans</item>
+    </style>
+    <style name="LightColorTextViewStyle" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:background">@color/trans</item>
+    </style>
+    <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/night_background</item>
+        <item name="android:backgroundTint">@color/trans</item>
+        <item name="android:textSize">@dimen/button_style_text_size</item>
+    </style>
+    <style name="NumberPickerStyle">
+        <item name="android:textColorPrimary">@color/night_background</item>
+        <item name="colorControlNormal">@color/trans</item>
+        <item name="android:textSize">@dimen/numberpicker_text_size</item>
+    </style>
+    <style name="LineView">
+        <item name="android:background">@color/night_background</item>
+    </style>
+    <style name="CalendarDayTextViewStyle" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/night_background</item>
+        <item name="android:background">@color/trans</item>
+    </style>
 </resources>

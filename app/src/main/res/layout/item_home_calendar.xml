@@ -16,14 +16,14 @@
 
         <TextView
             android:id="@+id/calendar_year_month_text"
+            style="@style/TextViewStyle"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="2020년 01월"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:gravity="center_vertical|start"
             android:layout_marginStart="20dp"
-            style="@style/TextViewStyle"/>
+            android:gravity="center_vertical|start"
+            android:text="@string/calendar_year_month_format"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <View
             android:id="@+id/div"

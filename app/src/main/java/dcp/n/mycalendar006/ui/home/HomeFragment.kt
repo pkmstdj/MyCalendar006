@@ -15,6 +15,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var homeFragmentCalendarAdapter: HomeFragmentCalendarAdapter
     private lateinit var viewPager: ViewPager2
+    val firstFragmentPosition = Int.MAX_VALUE / 2
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -32,11 +33,12 @@ class HomeFragment : Fragment() {
         homeFragmentCalendarAdapter = HomeFragmentCalendarAdapter(this)
         viewPager = view.findViewById(R.id.viewPager2_Calendar)
 
-        homeFragmentCalendarAdapter.addFragment(HomeCalendarFragment())
-        homeFragmentCalendarAdapter.addFragment(HomeCalendarFragment())
-        homeFragmentCalendarAdapter.addFragment(HomeCalendarFragment())
-
+//        homeFragmentCalendarAdapter.addFragment(HomeCalendarFragment())
+//        homeFragmentCalendarAdapter.addFragment(HomeCalendarFragment())
+//        homeFragmentCalendarAdapter.addFragment(HomeCalendarFragment())
         viewPager.adapter = homeFragmentCalendarAdapter
+
+        viewPager.setCurrentItem(firstFragmentPosition, false)
     }
 
     override fun onDestroyView() {
