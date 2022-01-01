@@ -23,13 +23,13 @@ class HomeFragmentCalendarAdapter(fragment: Fragment) : FragmentStateAdapter(fra
         return calendarFragment
     }
 
-    fun addFragment(fragment: Fragment){
-        fragments.add(fragment)
-        notifyItemInserted(fragments.size - 1)
-    }
-
-    fun removeFragment(){
-        fragments.removeLast()
-        notifyItemRemoved(fragments.size)
-    }
+//    fun addFragment(fragment: Fragment){
+//        fragments.add(fragment)
+//        notifyItemInserted(fragments.size - 1)
+//    }
+//
+//    fun removeFragment(){
+//        fragments.removeLast()
+//        notifyItemRemoved(fragments.size)
+//    }
 }

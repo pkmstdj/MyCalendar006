@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import dcp.n.mycalendar006.MainActivity
 import dcp.n.mycalendar006.R
 import kotlinx.android.synthetic.main.item_home_calendar.view.*
@@ -25,7 +27,7 @@ class HomeCalendarFragment : Fragment() {
     lateinit var calendar_year_month_text: TextView
     lateinit var calendar_layout: LinearLayout
     lateinit var calendar_view: RecyclerView
-    lateinit var calendarAdapter: HomeFragmentCalendarAdapter
+    lateinit var calendarDateAdapter: HomeFragmentCalendarDateAdapter
 
     companion object {
         var instance: HomeCalendarFragment? = null
@@ -51,6 +53,7 @@ class HomeCalendarFragment : Fragment() {
 //        return super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.item_home_calendar, container, false)
         initView(view)
+        initCalendar()
         return view
     }
 
@@ -73,6 +76,42 @@ class HomeCalendarFragment : Fragment() {
             Locale.KOREA
         ).format(date.time)
         calendar_year_month_text.text = datetime
+    }
+
+    fun initCalendar() {
+        // 각 월의 1일의 요일을 구해
+        // 첫 주의 일요일~해당 요일 전까지는 ""으로
+        // 말일까지 해당 날짜
+        // 마지막 날짜 뒤로는 ""으로 처리하여
+        // CalendarAdapter로 List를 넘김
+        calendarDateAdapter = HomeFragmentCalendarDateAdapter(mContext, calendar_layout, currentDate)
+        calendar_view.adapter = calendarDateAdapter
+        calendar_view.layoutManager = GridLayoutManager(mContext, 7, GridLayoutManager.VERTICAL, false)
+        calendar_view.setHasFixedSize(true)
+        calendarDateAdapter.itemClick = object :
+            HomeFragmentCalendarDateAdapter.ItemClick {
+            override fun onClick(view: View, position: Int) {
+                val firstDateIndex = calendarDateAdapter.dataList.indexOf(1)
+                val lastDateIndex = calendarDateAdapter.dataList.lastIndexOf(calendarDateAdapter.calendarDate.currentMaxDate)
+                // 현재 월의 1일 이전, 현재 월의 마지막일 이후는 터치 disable
+                if (position < firstDateIndex || position > lastDateIndex) {
+                    return
+                }
+                val day = calendarDateAdapter.dataList[position].toString()
+                val date = "${calendar_year_month_text.text}${day}일"
+
+                Snackbar.make(view, "" + date + "", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show()
+
+//                Log.d(TAG, "$date")
+
+//                val mainTab = mActivity.main_bottom_menu
+//                mainTab.setScrollPosition(1, 0f, true)
+//                val mainViewPager = mActivity.main_pager
+//                mainViewPager.currentItem = 1
+//                RoutineDateLiveData.getInstance().getLiveProgress().value = date
+            }
+        }
     }
 
     override fun onDestroyView() {
