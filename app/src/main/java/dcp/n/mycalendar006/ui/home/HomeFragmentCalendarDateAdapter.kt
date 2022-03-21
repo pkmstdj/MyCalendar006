@@ -23,13 +23,14 @@ class HomeFragmentCalendarDateAdapter (val context: Context, val calendarLayout:
 
     private val TAG = javaClass.simpleName
     var dataList: ArrayList<Int> = arrayListOf()
-
+    var dateListAdapter: HomeFragmentCalendarDateListAdapter
 
     // 날짜 리스트 세팅
     var calendarDate: CalendarDate = CalendarDate(date)
     init {
         calendarDate.initBaseCalendar()
         dataList = calendarDate.dateList
+        dateListAdapter = HomeFragmentCalendarDateListAdapter(context)
     }
 
     interface ItemClick {
@@ -64,7 +65,8 @@ class HomeFragmentCalendarDateAdapter (val context: Context, val calendarLayout:
     inner class CalendarItemHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
 
         var itemCalendarDateText: TextView = itemView!!.item_calendar_date_text
-        var itemCalendarDotView: View = itemView!!.item_calendar_dot_view
+//        var itemCalendarDotView: View = itemView!!.item_calendar_dot_view
+        var itemCalendarDateListView: RecyclerView = itemView!!.item_calendar_datelist_view
 
         fun bind(data: Int, position: Int, context: Context) {
             val firstDateIndex = calendarDate.prevTail
@@ -76,12 +78,16 @@ class HomeFragmentCalendarDateAdapter (val context: Context, val calendarLayout:
             var dateInt = dateString.toInt()
             if (dataList[position] == dateInt) {
                 itemCalendarDateText.setTypeface(itemCalendarDateText.typeface, Typeface.BOLD)
+
+                itemCalendarDateListView.adapter = dateListAdapter
+                dateListAdapter.notifyDataSetChanged()
             }
 
             // 현재 월의 1일 이전, 현재 월의 마지막일 이후 값의 텍스트를 회색처리
             if (position < firstDateIndex || position > lastDateIndex) {
                 itemCalendarDateText.setTextAppearance(R.style.LightColorTextViewStyle)
-                itemCalendarDotView.background = null
+//                itemCalendarDotView.background = null
+                itemCalendarDateListView.background = null
             }
         }
     }

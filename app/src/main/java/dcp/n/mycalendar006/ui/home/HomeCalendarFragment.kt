@@ -95,6 +95,8 @@ class HomeCalendarFragment : Fragment() {
                 val lastDateIndex = calendarDateAdapter.dataList.lastIndexOf(calendarDateAdapter.calendarDate.currentMaxDate)
                 // 현재 월의 1일 이전, 현재 월의 마지막일 이후는 터치 disable
                 if (position < firstDateIndex || position > lastDateIndex) {
+                    Snackbar.make(view, "out", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show()
                     return
                 }
                 val day = calendarDateAdapter.dataList[position].toString()
